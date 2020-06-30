@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="397.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ListaShitjeveController">
+   <children>
+      <TableView fx:id="tvShitjet" layoutX="31.0" layoutY="15.0" prefHeight="366.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="colsid" prefWidth="75.0" text="SID" />
+          <TableColumn fx:id="colbrand" prefWidth="100.0" text="BRAND" />
+            <TableColumn fx:id="colmodel" prefWidth="76.80000305175781" text="MODEL" />
+            <TableColumn fx:id="colprice" prefWidth="95.199951171875" text="PRICE" />
+            <TableColumn fx:id="coldate" prefWidth="118.4000244140625" text="DATE OF SALE" />
+            <TableColumn fx:id="coltime" prefWidth="132.0" text="TIME OF SALE" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

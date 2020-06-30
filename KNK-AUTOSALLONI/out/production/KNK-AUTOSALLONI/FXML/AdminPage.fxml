@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1089.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminController">
+   <children>
+      <Pane layoutY="40.0" prefHeight="567.0" prefWidth="402.0" style="-fx-background-color: #001a33;">
+         <children>
+            <Button fx:id="btndelete" layoutX="24.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="152.0" text="Sell Car" />
+            <Button fx:id="btninsert" layoutX="189.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="160.0" text="Buy Car" />
+            <Text fill="WHITE" layoutX="100.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMINISTRATOR">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <VBox layoutX="11.0" layoutY="56.0" prefHeight="413.0" prefWidth="357.0" spacing="7.0">
+               <children>
+                  <HBox prefHeight="151.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="blbl" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Brand:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfbrand" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="267.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="151.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="mlbl" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Model:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfmodel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="267.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="52.0" prefHeight="151.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="elbl" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Engine:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfengine" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="267.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="79.0" prefHeight="151.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="tlbl" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Type:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="lbty" prefHeight="32.0" prefWidth="267.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="113.0" prefHeight="151.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="clbl" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Color:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfcolor" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="267.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="148.0" prefHeight="151.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="ylbl" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Year:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfyear" prefHeight="32.0" prefWidth="267.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="182.0" prefHeight="37.0" prefWidth="369.0">
+                     <children>
+                        <Label fx:id="dlbl" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Doors:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="rb3" mnemonicParsing="false" text="3" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="55.0" top="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="rb5" mnemonicParsing="false" text="5" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="55.0" top="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="216.0" prefHeight="151.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="flbl" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Fuel:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="rddiesel" mnemonicParsing="false" text="Diesel" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="30.0" top="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="rdbenzin" mnemonicParsing="false" text="Benzin" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="30.0" top="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="rdelectric" mnemonicParsing="false" text="Electric" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="30.0" top="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="251.0" prefHeight="45.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="glbl" contentDisplay="RIGHT" lineSpacing="4.0" prefHeight="18.0" prefWidth="70.0" text="Gear:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="rdmanual" mnemonicParsing="false" text="Manual" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="23.0" top="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="rdautomatic" mnemonicParsing="false" text="Automatic" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="23.0" top="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="334.0" prefHeight="81.0" prefWidth="358.0">
+                     <children>
+                        <Label fx:id="plbl" contentDisplay="RIGHT" lineSpacing="4.0" prefHeight="18.0" prefWidth="70.0" text="Price:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfprice" prefHeight="32.0" prefWidth="267.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <TextField id="tfId" fx:id="tfID" layoutX="223.0" layoutY="17.0" style="visibility: hidden;" stylesheets="@idhidden.css" />
+            <Line endX="202.4000244140625" endY="-7.62939453125E-6" layoutX="145.0" layoutY="37.0" startX="-100.0" stroke="WHITE" />
+         </children>
+      </Pane>
+      <TableView fx:id="tvCars" layoutX="429.0" layoutY="70.0" onMouseClicked="#handleMouseAction" prefHeight="474.0" prefWidth="638.0">
+        <columns>
+            <TableColumn fx:id="colId" prefWidth="29.5999755859375" text="Id" />
+          <TableColumn fx:id="colBrand" prefWidth="72.79998779296875" text="Brand" />
+          <TableColumn fx:id="colModel" prefWidth="60.79998779296875" text="Model" />
+            <TableColumn fx:id="colEngine" prefWidth="42.39996337890625" text="Engine" />
+            <TableColumn fx:id="colType" prefWidth="80.7999267578125" text="Type" />
+            <TableColumn fx:id="colColor" prefWidth="53.5999755859375" text="Color" />
+            <TableColumn fx:id="colYear" prefWidth="38.39990234375" text="Year" />
+            <TableColumn fx:id="colDoors" prefWidth="39.19989013671875" text="Doors" />
+            <TableColumn fx:id="colFuel" prefWidth="66.39990234375" text="Fuel" />
+            <TableColumn fx:id="colGear" prefWidth="73.5999755859375" text="Gear" />
+            <TableColumn fx:id="colPrice" prefWidth="63.199951171875" text="Price" />
+        </columns>
+      </TableView>
+      <HBox prefHeight="26.0" prefWidth="1089.0" style="-fx-background-color: #0000;">
+         <children>
+            <MenuBar prefHeight="26.0" prefWidth="402.0">
+              <menus>
+                <Menu fx:id="lgbl" mnemonicParsing="false" text="Language">
+                  <items>
+                    <MenuItem fx:id="lblang" mnemonicParsing="false" text="English" />
+                        <MenuItem fx:id="lblshq" mnemonicParsing="false" text="Albanian" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="slbl" mnemonicParsing="false" text="Sales">
+                     <items>
+                        <MenuItem fx:id="btnlistashitjeve" mnemonicParsing="false" onAction="#listaShitjeveAction" text="Sales list" />
+                     </items>
+                  </Menu>
+                <Menu fx:id="albl" mnemonicParsing="false" text="About">
+                  <items>
+                    <MenuItem fx:id="about" mnemonicParsing="false" onAction="#aboutAction" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+               <opaqueInsets>
+                  <Insets right="30.0" />
+               </opaqueInsets>
+            </MenuBar>
+            <MenuButton id="myButton" fx:id="menubuttoni" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" popupSide="RIGHT" styleClass="menubuttoni" textAlignment="JUSTIFY">
+               <items>
+                  <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitmethod" text="EXIT" />
+                  <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logoutmethod" text="LOGOUT" />
+               </items>
+            </MenuButton>
+         </children>
+      </HBox>
+      <HBox layoutX="513.0" layoutY="-21.0" prefHeight="22.0" prefWidth="226.0" />
+   </children>
+</AnchorPane>
