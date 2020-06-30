@@ -342,6 +342,31 @@ public class AdminController implements Initializable {
 
         tfprice.setText(selectedItem.getPrice());
     }
+ @FXML
+    void englishAction(ActionEvent event) {
+    loadlang("Eng");
+    }
+
+    @FXML
+    void albanianAction(ActionEvent event) {
+        loadlang("Alb");
+    }
+
+    private void loadlang(String lang){
+        locale = new Locale(lang);
+        bundle = ResourceBundle.getBundle("Bundle.Lang",locale);
+        blbl.setText(bundle.getString("blbl"));
+        mlbl.setText(bundle.getString("mlbl"));
+        elbl.setText(bundle.getString("elbl"));
+        tlbl.setText(bundle.getString("tlbl"));
+        clbl.setText(bundle.getString("clbl"));
+        ylbl.setText(bundle.getString("albtn"));
+        dlbl.setText(bundle.getString("lgbtn"));
+        flbl.setText(bundle.getString("flbl"));
+        glbl.setText(bundle.getString("glbl"));
+        plbl.setText(bundle.getString("plbl"));
+
+    }
 
 
 
