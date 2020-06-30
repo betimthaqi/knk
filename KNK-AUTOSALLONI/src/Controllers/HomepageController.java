@@ -443,7 +443,6 @@ public class HomepageController implements Initializable {
         return carList;
     }
 
-    Button butoniiadminit = AdminController.getBtndelete();
 
     @FXML
     void englishAction(ActionEvent event) {
@@ -462,8 +461,11 @@ public class HomepageController implements Initializable {
         aboutbtn.setText(bundle.getString("aboutbtn"));
         conbtn.setText(bundle.getString("conbtn"));
         wlclbl1.setText(bundle.getString("wlclbl1"));
+        englbtn.setText(bundle.getString("englbtn"));
+        albtn.setText(bundle.getString("albtn"));
+        lgbtn.setText(bundle.getString("lgbtn"));
 
-        butoniiadminit.setText(bundle.getString("btndelete"));
+        
 
     }
 
