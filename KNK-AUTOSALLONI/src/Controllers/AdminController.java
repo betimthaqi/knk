@@ -5,31 +5,36 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
-import java.awt.event.MouseEvent;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
+import Controllers.HomepageController;
 
 public class AdminController implements Initializable {
 
-    private DBHandler handler;
-    private Connection connection;
+
+    private static DBHandler handler;
+    private static Connection connection;
     private PreparedStatement pst;
+
+    HomepageController home = new HomepageController();
+
+    @FXML
+    private MenuItem help;
 
     @FXML
     private Button btndelete;
@@ -46,8 +51,8 @@ public class AdminController implements Initializable {
     @FXML
     private TextField tfengine;
 
-//    @FXML
-//    private MenuButton mbtype;
+    //    @FXML
+    //    private MenuButton mbtype;
 
     @FXML
     private TextField tfcolor;
@@ -133,21 +138,68 @@ public class AdminController implements Initializable {
     @FXML
     private MenuItem btnlistashitjeve;
 
+
+    @FXML
+    private Menu albl;
+
+    @FXML
+    private Menu lgbl;
+    @FXML
+    private Menu slbl;
+
+    @FXML
+    private MenuItem lblang;
+
+    @FXML
+    private MenuItem lblshq;
+
+    @FXML
+    private MenuItem about;
+
+
     @FXML
     private Label blbl;
 
+
+    @FXML
+    private Label tlbl;
+
+    @FXML
+    private Label clbl;
+
+
+    @FXML
+    private Label ylbl;
+
+    @FXML
+    private Label mlbl;
+
+    @FXML
+    private Label elbl;
+
+    @FXML
+    private Label dlbl;
+    @FXML
+    private Label glbl;
+    @FXML
+    private Label flbl;
+    @FXML
+    private Label plbl;
+
+
     @Override
+
     public void initialize(URL location, ResourceBundle resources) {
         handler = new DBHandler();
 
         exit.setMnemonicParsing(true);
-        exit.setAccelerator(new KeyCodeCombination(KeyCode.A,
+        exit.setAccelerator(new KeyCodeCombination(KeyCode.X,
                 KeyCombination.CONTROL_DOWN));
 
         exit.setOnAction(event1 -> Platform.exit());
 
         logout.setMnemonicParsing(true);
-        logout.setAccelerator(new KeyCodeCombination(KeyCode.E,
+        logout.setAccelerator(new KeyCodeCombination(KeyCode.L,
                 KeyCombination.CONTROL_DOWN));
 
         logout.setOnAction(event1 -> {
@@ -158,6 +210,65 @@ public class AdminController implements Initializable {
             }
         });
 
+        lblang.setMnemonicParsing(true);
+        lblang.setAccelerator(new KeyCodeCombination(KeyCode.E,
+                KeyCombination.CONTROL_DOWN));
+
+        lblang.setOnAction(event1 -> {
+            try {
+                englishAction(event1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        lblshq.setMnemonicParsing(true);
+        lblshq.setAccelerator(new KeyCodeCombination(KeyCode.A,
+                KeyCombination.CONTROL_DOWN));
+
+        lblshq.setOnAction(event1 -> {
+            try {
+                albanianAction(event1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        help.setMnemonicParsing(true);
+        help.setAccelerator(new KeyCodeCombination(KeyCode.H,
+                KeyCombination.CONTROL_DOWN));
+
+        help.setOnAction(event1 -> {
+            try {
+                helpAction(event1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        about.setMnemonicParsing(true);
+        about.setAccelerator(new KeyCodeCombination(KeyCode.O,
+                KeyCombination.CONTROL_DOWN));
+
+        about.setOnAction(event1 -> {
+            try {
+                aboutAction(event1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        btnlistashitjeve.setMnemonicParsing(true);
+        btnlistashitjeve.setAccelerator(new KeyCodeCombination(KeyCode.S,
+                KeyCombination.CONTROL_DOWN));
+
+        btnlistashitjeve.setOnAction(event1 -> {
+            try {
+                listaShitjeveAction(event1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         try {
             showCars("SELECT * FROM veturat");
         } catch (Exception e) {
@@ -171,46 +282,39 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    void aboutAction(ActionEvent event) throws Exception{
-        Stage about = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../FXML/AboutPage.fxml"));
-        Scene scene = new Scene(root);
-        about.setScene(scene);
-        about.show();
+    void aboutAction(ActionEvent event) throws Exception {
+        home.loadFxml("../FXML/AboutPage.fxml", "About");
     }
 
     @FXML
     void logoutmethod(ActionEvent event) throws Exception {
         menubuttoni.getScene().getWindow().hide();
-        Stage loginbtn1 = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../FXML/LogInMain.fxml"));
-        Scene scene1 = new Scene(root);
-        loginbtn1.setScene(scene1);
-        loginbtn1.show();
-        loginbtn1.setResizable(true);
+        home.loadFxml("../FXML/LogInMain.fxml", "Sign In");
+    }
+
+
+    @FXML
+    void handleButtonAction(ActionEvent event) throws Exception {
+        if (event.getSource() == btninsert) {
+            insertRecords();
+        } else deleteRecords();
+    }
+
+
+    @FXML
+    void helpAction(ActionEvent event) throws IOException {
+        File f = new File("src\\help\\" + help.getText() + ".txt");
+        Desktop.getDesktop().open(f);
     }
 
     @FXML
-    void handleButtonAction(ActionEvent event) throws Exception{
-        if(event.getSource() == btninsert){
-        insertRecords();
-        }else deleteRecords();
-    }
-
-    @FXML
-    void listaShitjeveAction(ActionEvent event) throws Exception{
-        Stage btnlistashitjeve = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../FXML/ListaShitjeve.fxml"));
-        Scene scene1 = new Scene(root);
-        btnlistashitjeve.setScene(scene1);
-        btnlistashitjeve.show();
-        btnlistashitjeve.setResizable(true);
+    void listaShitjeveAction(ActionEvent event) throws Exception {
+        home.loadFxml("../FXML/ListaShitjeve.fxml", "Lista e Shitjeve");
     }
 
     public ObservableList<Cars> getCarsList(String query) throws SQLException {
         ObservableList<Cars> carList = FXCollections.observableArrayList();
         connection = handler.getConnection();
-//        String query = "SELECT * FROM veturat";
 
 
         try {
@@ -218,7 +322,7 @@ public class AdminController implements Initializable {
             ResultSet rs = pst.executeQuery();
             Cars cars;
             while (rs.next()) {
-                cars = new Cars(rs.getInt("vId"),rs.getString("brendi"), rs.getString("modeli"), rs.getString("motori"), rs.getString("tipi"), rs.getString("ngjyra"), rs.getString("vitiProdhimit"), rs.getInt("numriDyerve"), rs.getString("karburanti"), rs.getString("transmetuesi"), rs.getString("cmimi"));
+                cars = new Cars(rs.getInt("vId"), rs.getString("brendi"), rs.getString("modeli"), rs.getString("motori"), rs.getString("tipi"), rs.getString("ngjyra"), rs.getString("vitiProdhimit"), rs.getInt("numriDyerve"), rs.getString("karburanti"), rs.getString("transmetuesi"), rs.getString("cmimi"));
                 carList.add(cars);
 
             }
@@ -245,24 +349,25 @@ public class AdminController implements Initializable {
         tvCars.setItems(list);
     }
 
-    public void insertRecords() throws Exception{
+    public void insertRecords() throws Exception {
         String query = String.format("INSERT INTO veturat(brendi,modeli,motori,tipi,ngjyra,vitiProdhimit,numriDyerve,karburanti,transmetuesi,cmimi) VALUES ('%s','%s','%s','%s','%s','%s',%d,'%s','%s','%s')", tfbrand.getText(), tfmodel.getText(), tfengine.getText(), lbty.getText(), tfcolor.getText(), tfyear.getText(), getDoors(), getFuel(), getGear(), tfprice.getText());
         executeQuery(query);
         showCars("SELECT * FROM veturat");
     }
 
-    public void deleteRecords() throws Exception{
+    public void deleteRecords() throws Exception {
         String query = "DELETE FROM veturat WHERE vId =" + tfID.getText();
         executeQuery(query);
         showCars("SELECT * FROM veturat");
     }
-    public void executeQuery(String query) throws SQLException {
+
+    public static void executeQuery(String query) throws SQLException {
         connection = handler.getConnection();
         Statement st;
         try {
-        st = connection.createStatement();
-        st.executeUpdate(query);
-        }catch (SQLException e){
+            st = connection.createStatement();
+            st.executeUpdate(query);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -298,53 +403,58 @@ public class AdminController implements Initializable {
         return gear;
     }
 
-    public void handleMouseAction(javafx.scene.input.MouseEvent mouseEvent) {
+    public void handleMouseAction(MouseEvent mouseEvent) {
         Cars selectedItem = tvCars.getSelectionModel().getSelectedItem();
 
-        tfID.setText(""+selectedItem.getId());
+        tfID.setText("" + selectedItem.getId());
         tfbrand.setText(selectedItem.getBrand());
         tfmodel.setText(selectedItem.getModeli());
         tfengine.setText(selectedItem.getEngine());
         lbty.setText(selectedItem.getType());
         tfcolor.setText(selectedItem.getColor());
         tfyear.setText(selectedItem.getYear());
-//
-        if(selectedItem.getDoors() == 3){
+        //
+        if (selectedItem.getDoors() == 3) {
             rb3.setSelected(true);
             rb5.setSelected(false);
-        }else {
+        } else {
             rb3.setSelected(false);
             rb5.setSelected(true);
         }
 
-        if(selectedItem.getFuel().equals("Nafte")){
+        if (selectedItem.getFuel().equals("Nafte")) {
             rddiesel.setSelected(true);
             rdbenzin.setSelected(false);
             rdelectric.setSelected(false);
-        }else if(selectedItem.getFuel().equals("Benzine")){
+        } else if (selectedItem.getFuel().equals("Benzine")) {
             rdbenzin.setSelected(true);
             rddiesel.setSelected(false);
             rdelectric.setSelected(false);
-        }else {
+        } else {
             rdelectric.setSelected(true);
             rddiesel.setSelected(false);
             rdbenzin.setSelected(false);
 
         }
 
-        if(selectedItem.getGear().equals("Manual")){
+        if (selectedItem.getGear().equals("Manual")) {
             rdmanual.setSelected(true);
             rdautomatic.setSelected(false);
-        }else{
+        } else {
             rdautomatic.setSelected(true);
             rdmanual.setSelected(false);
         }
 
         tfprice.setText(selectedItem.getPrice());
     }
- @FXML
+
+
+    private ResourceBundle bundle;
+    private Locale locale;
+
+    @FXML
     void englishAction(ActionEvent event) {
-    loadlang("Eng");
+        loadlang("Eng");
     }
 
     @FXML
@@ -352,36 +462,32 @@ public class AdminController implements Initializable {
         loadlang("Alb");
     }
 
-    private void loadlang(String lang){
+    private void loadlang(String lang) {
         locale = new Locale(lang);
-        bundle = ResourceBundle.getBundle("Bundle.Lang",locale);
+        bundle = ResourceBundle.getBundle("Bundle.Lang", locale);
         blbl.setText(bundle.getString("blbl"));
         mlbl.setText(bundle.getString("mlbl"));
         elbl.setText(bundle.getString("elbl"));
         tlbl.setText(bundle.getString("tlbl"));
         clbl.setText(bundle.getString("clbl"));
-        ylbl.setText(bundle.getString("albtn"));
-        dlbl.setText(bundle.getString("lgbtn"));
+        ylbl.setText(bundle.getString("ylbl"));
+        dlbl.setText(bundle.getString("dlbl"));
         flbl.setText(bundle.getString("flbl"));
         glbl.setText(bundle.getString("glbl"));
         plbl.setText(bundle.getString("plbl"));
+        btndelete.setText(bundle.getString("btndelete"));
+        btninsert.setText(bundle.getString("btninsert"));
+        lgbl.setText(bundle.getString("lgbl"));
+        lblang.setText(bundle.getString("lblang"));
+        lblshq.setText(bundle.getString("lblshq"));
+        slbl.setText(bundle.getString("slbl"));
+        btnlistashitjeve.setText(bundle.getString("btnlistashitjeve"));
+        albl.setText(bundle.getString("albl"));
+        about.setText(bundle.getString("about"));
+        exit.setText(bundle.getString("exit"));
+        logout.setText(bundle.getString("logout"));
+        help.setText(bundle.getString("help"));
 
     }
-
-
-
-//    public String getType() {
-//
-//        final String[] tipi = {""};
-//
-//        sedanid.setOnAction((e)-> {
-//            tipi[0] = "Sedan";
-//        });
-//        coupeid.setOnAction((e)-> {
-//            tipi[0] = "Coupe";
-//        });
-//
-//        return tipi[0];
-//    }
 
 }
