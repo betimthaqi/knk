@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -78,12 +79,11 @@
                </graphic>
             </Button>
          </children></AnchorPane>
-      <AnchorPane fx:id="MyCarsAnchorPane" layoutX="224.0" layoutY="57.0" prefHeight="401.0" prefWidth="496.0" />
       <Label fx:id="wlclbl" alignment="CENTER" contentDisplay="CENTER" layoutX="305.0" layoutY="14.0" prefHeight="35.0" prefWidth="342.0" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font></Label>
-      <Label fx:id="wlclbl1" alignment="CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="14.0" prefHeight="35.0" prefWidth="342.0" text="Welcome" textAlignment="CENTER">
+      <Label fx:id="wlclbl1" alignment="CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="14.0" prefHeight="35.0" prefWidth="342.0" text="Welcome," textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
@@ -165,14 +165,19 @@
       </AnchorPane>
       <HBox layoutY="1.0" prefHeight="26.0" prefWidth="888.0">
          <children>
-            <MenuBar fx:id="lgbtn" prefHeight="26.0" prefWidth="208.0">
+            <MenuBar prefHeight="26.0" prefWidth="183.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Language">
+                <Menu fx:id="lgbtn" mnemonicParsing="false" text="Language">
                   <items>
                     <MenuItem fx:id="englbtn" mnemonicParsing="false" onAction="#englishAction" text="English" />
                         <MenuItem fx:id="albtn" mnemonicParsing="false" onAction="#albanianAction" text="Albanian" />
                   </items>
                 </Menu>
+                  <Menu fx:id="help" mnemonicParsing="false" text="Help">
+                    <items>
+                      <MenuItem fx:id="helpbtn" mnemonicParsing="false" onAction="#helpAction" text="Help" />
+                    </items>
+                  </Menu>
               </menus>
             </MenuBar>
             <MenuButton fx:id="menubuttoni" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" popupSide="RIGHT" textAlignment="JUSTIFY">
@@ -180,6 +185,9 @@
                 <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitmethod" text="EXIT" />
                 <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logoutmethod" text="LOGOUT" />
               </items>
+               <HBox.margin>
+                  <Insets left="680.0" />
+               </HBox.margin>
             </MenuButton>
          </children>
       </HBox>
