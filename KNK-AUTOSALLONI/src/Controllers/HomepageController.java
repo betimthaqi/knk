@@ -5,14 +5,11 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -22,13 +19,9 @@ import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
-import javax.swing.*;
-
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 import java.sql.Connection;
@@ -37,9 +30,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import Controllers.AdminController;
 
 public class HomepageController implements Initializable {
+	
 
     private DBHandler handler;
     private Connection connection;
@@ -47,9 +40,6 @@ public class HomepageController implements Initializable {
 
     @FXML
     private AnchorPane HomeAnchorpane;
-
-    @FXML
-    private AnchorPane MyCarsAnchorPane;
 
     @FXML
     private Label wlclbl;
@@ -245,28 +235,34 @@ public class HomepageController implements Initializable {
     private Label wlclbl1;
 
     @FXML
-    private MenuBar lgbtn;
+    private Menu lgbtn;
 
     @FXML
     private MenuItem englbtn;
 
     @FXML
     private MenuItem albtn;
+    
+    @FXML
+    private Menu help;
 
+    @FXML
+    private MenuItem helpbtn;
+    
     private ResourceBundle bundle;
     private Locale locale;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
 
         exit.setMnemonicParsing(true);
-        exit.setAccelerator(new KeyCodeCombination(KeyCode.A,
+        exit.setAccelerator(new KeyCodeCombination(KeyCode.X,
                 KeyCombination.CONTROL_DOWN));
 
         exit.setOnAction(event1 -> Platform.exit());
 
         logout.setMnemonicParsing(true);
-        logout.setAccelerator(new KeyCodeCombination(KeyCode.E,
+        logout.setAccelerator(new KeyCodeCombination(KeyCode.L,
                 KeyCombination.CONTROL_DOWN));
 
         logout.setOnAction(event1 -> {
@@ -276,42 +272,64 @@ public class HomepageController implements Initializable {
                 e.printStackTrace();
             }
         });
+        
+        helpbtn.setMnemonicParsing(true);
+        helpbtn.setAccelerator(new KeyCodeCombination(KeyCode.H,
+                KeyCombination.CONTROL_DOWN));
 
+        helpbtn.setOnAction(event1 -> {
+            try {
+                helpAction(event1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        
+        englbtn.setMnemonicParsing(true);
+        englbtn.setAccelerator(new KeyCodeCombination(KeyCode.E,
+                KeyCombination.CONTROL_DOWN));
 
-        BMWAnchorPane.setVisible(false);
-        MERCEDESAnchorPane.setVisible(false);
-        AudiAnchorPane.setVisible(false);
-        VWAnchorPane.setVisible(false);
-        HomeAnchorpane.setVisible(true);
-        MyCarsAnchorPane.setVisible(false);
+        englbtn.setOnAction(event1 -> {
+            try {
+                englishAction(event1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        
+        albtn.setMnemonicParsing(true);
+        albtn.setAccelerator(new KeyCodeCombination(KeyCode.A,
+                KeyCombination.CONTROL_DOWN));
+
+        albtn.setOnAction(event1 -> {
+            try {
+                albanianAction(event1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        selectAnchor(true,false,false,false,false);
+
 
         setUsername(LogInController.getInstance().username());
+        
     }
-
-    public void homeAction(javafx.event.ActionEvent actionEvent) {
-        BMWAnchorPane.setVisible(false);
-        MERCEDESAnchorPane.setVisible(false);
-        AudiAnchorPane.setVisible(false);
-        VWAnchorPane.setVisible(false);
-        HomeAnchorpane.setVisible(true);
-        MyCarsAnchorPane.setVisible(false);
+    
+    
+    public void homeAction(ActionEvent actionEvent) {
+        selectAnchor(true,false,false,false,false);
     }
 
     @FXML
-    public void AboutAction(javafx.event.ActionEvent actionEvent) throws Exception {
-        Stage about = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../FXML/AboutPage.fxml"));
-        Scene scene = new Scene(root);
-        about.setScene(scene);
-        about.show();
+    public void AboutAction(ActionEvent actionEvent) throws Exception {
+        loadFxml("../FXML/AboutPage.fxml","About");
     }
 
-    public void MyCarsAction(javafx.event.ActionEvent actionEvent) {
-        HomeAnchorpane.setVisible(false);
-        MyCarsAnchorPane.setVisible(true);
-    }
-
-    public void ContactUsAction(javafx.event.ActionEvent actionEvent) {
+   
+    public void ContactUsAction(ActionEvent actionEvent) throws IOException {
+    	conbtn.getScene().getWindow().hide();
+    	loadFxml("../FXML/ContactUs.fxml","Contact Us");
     }
 
 
@@ -323,13 +341,8 @@ public class HomepageController implements Initializable {
     @FXML
     void logoutmethod(ActionEvent event) throws Exception {
         menubuttoni.getScene().getWindow().hide();
-        Stage loginbtn1 = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../FXML/LogInMain.fxml"));
-        Scene scene1 = new Scene(root);
-        loginbtn1.setScene(scene1);
-        loginbtn1.show();
-        loginbtn1.setResizable(false);
-    }
+        loadFxml("../FXML/LogInMain.fxml","Log in");
+        }
 
 
     public void setUsername(String user) {
@@ -345,12 +358,7 @@ public class HomepageController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        HomeAnchorpane.setVisible(false);
-        MyCarsAnchorPane.setVisible(false);
-        BMWAnchorPane.setVisible(false);
-        MERCEDESAnchorPane.setVisible(false);
-        AudiAnchorPane.setVisible(true);
-        VWAnchorPane.setVisible(false);
+        selectAnchor(false,false,false,true,false);
     }
 
     private void showCars(String s, TableView<Cars> tvCars, TableColumn<Cars, Integer> colId, TableColumn<Cars, String> colBrand, TableColumn<Cars, String> colModel, TableColumn<Cars, String> colEngine, TableColumn<Cars, String> colType, TableColumn<Cars, String> colColor, TableColumn<Cars, String> colYear, TableColumn<Cars, Integer> colDoors, TableColumn<Cars, String> colFuel, TableColumn<Cars, String> colGear, TableColumn<Cars, String> colPrice) throws Exception {
@@ -380,30 +388,22 @@ public class HomepageController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        HomeAnchorpane.setVisible(false);
-        MyCarsAnchorPane.setVisible(false);
-        BMWAnchorPane.setVisible(false);
-        MERCEDESAnchorPane.setVisible(true);
-        AudiAnchorPane.setVisible(false);
-        VWAnchorPane.setVisible(false);
+        selectAnchor(false,false,true,false,false);
+        
     }
+    
 
     @FXML
     void VWAction(ActionEvent event) {
 
+    	handler = new DBHandler();
         try {
             showCars("SELECT * FROM veturat WHERE brendi='Volkswagen'", tvCars111, colId111, colBrand111, colModel111, colEngine111, colType111, colColor111, colYear111, colDoors111, colFuel111, colGear111, colPrice111);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        HomeAnchorpane.setVisible(false);
-        MyCarsAnchorPane.setVisible(false);
-        BMWAnchorPane.setVisible(false);
-        MERCEDESAnchorPane.setVisible(false);
-        AudiAnchorPane.setVisible(false);
-        VWAnchorPane.setVisible(true);
-    }
+        selectAnchor(false,false,false,false,true);
+            }
 
     @FXML
     void bmwAction(ActionEvent event) {
@@ -416,14 +416,17 @@ public class HomepageController implements Initializable {
             e.printStackTrace();
         }
 
-        HomeAnchorpane.setVisible(false);
-        MyCarsAnchorPane.setVisible(false);
-        BMWAnchorPane.setVisible(true);
-        MERCEDESAnchorPane.setVisible(false);
-        AudiAnchorPane.setVisible(false);
-        VWAnchorPane.setVisible(false);
+        selectAnchor(false,true,false,false,false);
     }
 
+    public void selectAnchor(boolean Home,boolean BMW,boolean MERCEDES,boolean Audi ,boolean VW) {
+
+    	HomeAnchorpane.setVisible(Home);
+    	BMWAnchorPane.setVisible(BMW);
+    	MERCEDESAnchorPane.setVisible(MERCEDES);
+    	AudiAnchorPane.setVisible(Audi);
+    	VWAnchorPane.setVisible(VW);
+    }
 
     public ObservableList<Cars> getCarsList(String query) throws SQLException {
         ObservableList<Cars> carList = FXCollections.observableArrayList();
@@ -454,6 +457,14 @@ public class HomepageController implements Initializable {
         loadlang("Alb");
     }
 
+    
+    @FXML
+    void helpAction(ActionEvent event) throws IOException {
+    	File f = new File( "src\\help\\" + helpbtn.getText() + ".txt" );
+        Desktop.getDesktop().open(f);
+    }
+    
+    
     private void loadlang(String lang){
         locale = new Locale(lang);
         bundle = ResourceBundle.getBundle("Bundle.Lang",locale);
@@ -464,9 +475,20 @@ public class HomepageController implements Initializable {
         englbtn.setText(bundle.getString("englbtn"));
         albtn.setText(bundle.getString("albtn"));
         lgbtn.setText(bundle.getString("lgbtn"));
-
+        exit.setText(bundle.getString("exit"));
+        logout.setText(bundle.getString("logout"));
+        help.setText(bundle.getString("help"));
+        helpbtn.setText(bundle.getString("help"));    
         
-
+    }
+    
+    public void loadFxml(String path,String titulli) throws IOException {
+    	Stage about = new Stage();
+        about.setTitle(titulli);
+        Parent root = FXMLLoader.load(getClass().getResource(path));
+        Scene scene = new Scene(root);
+        about.setScene(scene);
+        about.show();
     }
 
 
