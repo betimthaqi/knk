@@ -187,12 +187,12 @@
       </TableView>
       <HBox prefHeight="26.0" prefWidth="1089.0" style="-fx-background-color: #0000;">
          <children>
-            <MenuBar prefHeight="26.0" prefWidth="402.0">
+            <MenuBar prefHeight="26.0" prefWidth="437.0">
               <menus>
                 <Menu fx:id="lgbl" mnemonicParsing="false" text="Language">
                   <items>
-                    <MenuItem fx:id="lblang" mnemonicParsing="false" text="English" />
-                        <MenuItem fx:id="lblshq" mnemonicParsing="false" text="Albanian" />
+                    <MenuItem fx:id="lblang" mnemonicParsing="false" onAction="#englishAction" text="English" />
+                        <MenuItem fx:id="lblshq" mnemonicParsing="false" onAction="#albanianAction" text="Albanian" />
                   </items>
                 </Menu>
                   <Menu fx:id="slbl" mnemonicParsing="false" text="Sales">
@@ -200,9 +200,10 @@
                         <MenuItem fx:id="btnlistashitjeve" mnemonicParsing="false" onAction="#listaShitjeveAction" text="Sales list" />
                      </items>
                   </Menu>
-                <Menu fx:id="albl" mnemonicParsing="false" text="About">
+                <Menu fx:id="albl" mnemonicParsing="false" text="Help">
                   <items>
                     <MenuItem fx:id="about" mnemonicParsing="false" onAction="#aboutAction" text="About" />
+                        <MenuItem fx:id="help" mnemonicParsing="false" onAction="#helpAction" text="Help" />
                   </items>
                 </Menu>
               </menus>
@@ -210,11 +211,14 @@
                   <Insets right="30.0" />
                </opaqueInsets>
             </MenuBar>
-            <MenuButton id="myButton" fx:id="menubuttoni" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" popupSide="RIGHT" styleClass="menubuttoni" textAlignment="JUSTIFY">
+            <MenuButton id="myButton" fx:id="menubuttoni" alignment="BASELINE_RIGHT" contentDisplay="TOP" mnemonicParsing="false" popupSide="RIGHT" styleClass="menubuttoni" textAlignment="JUSTIFY">
                <items>
                   <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitmethod" text="EXIT" />
                   <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logoutmethod" text="LOGOUT" />
                </items>
+               <HBox.margin>
+                  <Insets left="660.0" />
+               </HBox.margin>
             </MenuButton>
          </children>
       </HBox>
